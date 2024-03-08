@@ -73,3 +73,60 @@ export const createSong = asyncHandler(async (req, res, next) => {
     message: `${title} added`,
   });
 });
+
+export const getAllSongs = asyncHandler(async (req, res, next) => {
+  const songs = await songModel.find({});
+
+  res.status(200).json({
+    success: true,
+    songs,
+  });
+});
+
+export const getSongById = asyncHandler(async (req, res, next) => {
+  const { songId } = req.params;
+
+  const validId = isValidId(songId);
+
+  if (!validId) {
+    return next(new ErrorHandler("Invalid Id", 400));
+  }
+
+  const song = await songModel.findById(songId);
+
+  if (!song) {
+    return next(new ErrorHandler("Song not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    song,
+  });
+});
+
+export const deleteSong = asyncHandler(async (req, res, next) => {
+  const { songId } = req.params;
+
+  const validId = isValidId(songId);
+
+  if (!validId) {
+    return next(new ErrorHandler("Invalid Id", 400));
+  }
+
+  const song = await songModel.findById(songId);
+
+  if (!song) {
+    return next(new ErrorHandler("Song not found", 404));
+  }
+
+  await song.deleteOne();
+
+  res.status(200).json({
+    success: true,
+    message: "Song deleted successfully",
+  });
+});
+
+export const updateSong = asyncHandler(async (req, res, next) => {
+  // TODO: Update song
+});
