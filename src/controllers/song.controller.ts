@@ -128,5 +128,27 @@ export const deleteSong = asyncHandler(async (req, res, next) => {
 });
 
 export const updateSong = asyncHandler(async (req, res, next) => {
-  // TODO: Update song
+  const { songId } = req.params;
+
+  const { title, description } = req.body as ISongRequestBody;
+
+  const validId = isValidId(songId);
+
+  if (!validId) {
+    return next(new ErrorHandler("Invalid Id", 400));
+  }
+
+  const song = await songModel.findById(songId);
+
+  if (!song) {
+    return next(new ErrorHandler("Song not found", 404));
+  }
+
+  if (title && title !== song.title) {
+    song.title = title;
+  }
+
+  if (description && description !== song.title) {
+    song.description = description;
+  }
 });

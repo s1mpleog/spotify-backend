@@ -58,3 +58,9 @@ export type ISongRequestBody = {
   artistId: string;
   releaseDate: string;
 };
+
+export type IPlaylistRequestBody = {
+  name: string;
+  description: string;
+  songId: string;
+};

@@ -27,11 +27,15 @@ app.use(morgan("dev"));
 import userRoute from "./routes/user.routes";
 import artistRoute from "./routes/artist.routes";
 import songRoute from "./routes/song.routes";
+import likedSongRoute from "./routes/likedSongs.routes";
+import playlistRoute from "./routes/playlist.routes";
 
 // using routes
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/artists", artistRoute);
 app.use("/api/v1/songs", songRoute);
+app.use("/api/v1/like-songs", likedSongRoute);
+app.use("/api/v1/songs/playlist", playlistRoute);
 
 app.use(errorMiddleware);
 
