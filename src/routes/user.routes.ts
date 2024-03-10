@@ -20,7 +20,7 @@ router.route("/register").post(upload.single("avatar"), registerUser);
 router.route("/login").post(loginUser);
 router.route("/me").get(verifyJWT, getCurrentLoggedInUser);
 router.route("/logout").post(verifyJWT, logoutUser);
-router.route("/update").post(verifyJWT, updateTokens);
+router.route("/update").get(verifyJWT, updateTokens);
 router.route("/profile/:userId").get(verifyJWT, getUserProfile);
 router.route("/profile/update/:userId").patch(verifyJWT, updateProfile);
 router.route("/profile/delete/:userId").delete(verifyJWT, deleteAccount);

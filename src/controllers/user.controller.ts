@@ -102,7 +102,6 @@ export const getCurrentLoggedInUser = asyncHandler(async (req, res, next) => {
   const user = req.user;
 
   res.status(200).json({
-    success: true,
     user,
   });
 });
@@ -123,7 +122,6 @@ export const getUserProfile = asyncHandler(async (req, res, next) => {
   }
 
   res.status(200).json({
-    success: true,
     user,
   });
 });

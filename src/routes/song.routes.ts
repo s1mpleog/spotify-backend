@@ -11,9 +11,8 @@ import {
 
 const router = Router();
 
-router.use(verifyJWT);
-
 router.route("/create").post(
+  verifyJWT,
   upload.fields([
     {
       name: "poster",
@@ -28,8 +27,8 @@ router.route("/create").post(
 );
 
 router.route("/by-id/:songId").get(getSongById);
-router.route("/delete/:songId").delete(deleteSong);
+router.route("/delete/:songId").delete(verifyJWT, deleteSong);
 router.route("/all").get(getAllSongs);
-router.route("/update/:songId").patch(updateSong);
+router.route("/update/:songId").patch(verifyJWT, updateSong);
 
 export default router;

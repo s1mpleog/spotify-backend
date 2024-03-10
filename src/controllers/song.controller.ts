@@ -75,7 +75,7 @@ export const createSong = asyncHandler(async (req, res, next) => {
 });
 
 export const getAllSongs = asyncHandler(async (req, res, next) => {
-  const songs = await songModel.find({});
+  const songs = await songModel.find({}).populate("artist");
 
   res.status(200).json({
     success: true,
@@ -92,7 +92,7 @@ export const getSongById = asyncHandler(async (req, res, next) => {
     return next(new ErrorHandler("Invalid Id", 400));
   }
 
-  const song = await songModel.findById(songId);
+  const song = await songModel.findById(songId).populate("artist");
 
   if (!song) {
     return next(new ErrorHandler("Song not found", 404));
