@@ -11,15 +11,14 @@ import {
 } from "../controllers/artist.controller";
 
 const router = Router();
-router.use(verifyJWT);
 
-router.route("/create").post(upload.single("avatar"), createArtist);
+router.route("/create").post(verifyJWT, upload.single("avatar"), createArtist);
 router.route("/by-id/:artistId").get(getArtistById);
 router.route("/all").get(getAllArtist);
-router.route("/delete/:artistId").delete(deleteArtist);
-router.route("/update/:artistId").patch(updateArtist);
+router.route("/delete/:artistId").delete(verifyJWT, deleteArtist);
+router.route("/update/:artistId").patch(verifyJWT, updateArtist);
 router
   .route("/update-avatar/:artistId")
-  .patch(upload.single("avatar"), updateArtistAvatar);
+  .patch(verifyJWT, upload.single("avatar"), updateArtistAvatar);
 
 export default router;

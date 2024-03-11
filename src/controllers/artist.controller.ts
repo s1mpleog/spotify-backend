@@ -58,7 +58,7 @@ export const getArtistById = asyncHandler(async (req, res, next) => {
     return next(new ErrorHandler("Invalid Actor Id", 400));
   }
 
-  const artist = await artistModel.findById(artistId);
+  const artist = await artistModel.findById(artistId).populate("songs");
 
   if (!artist) {
     return next(new ErrorHandler("Artist not found", 404));
